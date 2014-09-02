@@ -56,11 +56,25 @@
  */
 - (RectangularPlanePoint) rectangularPlaneTanslate:(RectangularPlanePoint) point withParameter:(MapParameter) parameter{
     RectangularPlanePoint toPoint;
-    toPoint.x = parameter.deltaX + (1 + parameter.k)*point.x + parameter.rotateZ*point.y - parameter.rotateY*point.z;
+
     
-    toPoint.y = parameter.deltaY + (1 + parameter.k)*point.y - parameter.rotateZ*point.x + parameter.rotateX*point.z;
+    double deltaX = parameter.deltaX;
+    double deltaY = parameter.deltaY;
+    double deltaZ = parameter.deltaZ;
+    //标准参数中给出的单位是秒，这里要转成弧度
+    double rotateX = [self translateAngle:parameter.rotateX/3600.0];
+    double rotateY = [self translateAngle:parameter.rotateY/3600.0];
+    double rotateZ = [self translateAngle:parameter.rotateZ/3600.0];
+    // 标准参数中给出的值的单位是ppm，百万分之一米
+    double k = 1.0 / parameter.k / 10000000.0;
     
-    toPoint.z = parameter.deltaZ + (1 + parameter.k)*point.z + parameter.rotateY*point.x - parameter.rotateX*point.y;
+//    toPoint.x = deltaX + (1 + k)*(point.x + rotateZ*point.y - rotateY*point.z);
+//    toPoint.y = deltaY + (1 + k)*(-rotateZ*point.x+ point.y - rotateX*point.z);
+//    toPoint.z = deltaZ + (1 + k)*(point.x*rotateY - rotateX*point.y - point.z);
+    
+    toPoint.x = deltaX + (1 + k)*point.x + rotateZ*point.y - rotateY*point.z;
+    toPoint.y = deltaY + (1 + k)*point.y - rotateZ*point.x + rotateX*point.z;
+    toPoint.z = deltaZ + (1 + k)*point.z + rotateY*point.x - rotateX*point.y;
     
     return toPoint;
 }
@@ -269,13 +283,24 @@
     
     // 84空间坐标点转80空间坐标点
     MapParameter parameter;
-    parameter.deltaX = 202.634955018375;
-    parameter.deltaY = 80.880255411162;
-    parameter.deltaZ = 66.252987028366;
-    parameter.rotateX = 1.227450;
-    parameter.rotateY = 2.290472;
-    parameter.rotateZ = -2.866066;
-    parameter.k = -1.69905481167421;
+    //杭州参数
+//    parameter.deltaX = 202.634955018375;
+//    parameter.deltaY = 80.880255411162;
+//    parameter.deltaZ = 66.252987028366;
+//    parameter.rotateX = 1.227450;
+//    parameter.rotateY = 2.290472;
+//    parameter.rotateZ = -2.866066;
+//    parameter.k = -1.69905481167421;
+    
+    // 宁波参数 84转80参数
+    parameter.deltaX = 219.24366659464;
+    parameter.deltaY = 85.294116277735;
+    parameter.deltaZ = 72.290279203019;
+    parameter.rotateX = 1.150130;
+    parameter.rotateY = 2.901362;
+    parameter.rotateZ = -3.161284;
+    parameter.k = -1.427491005181;
+    
     RectangularPlanePoint rectoPoint80 = [self rectangularPlaneTanslate:rectPoint84 withParameter:parameter];
     
     // 80空间坐标点转80经纬度坐标
@@ -298,17 +323,8 @@
 @synthesize ee = _ee;
 
 - (double) ee {
-    if (_ee == 0) {
-        _ee = self.e2/(1 - self.e2);
-    }
+    _ee = self.e2/(1 - self.e2);
     return _ee;
-}
-
-- (double) e2 {
-    if (_e2 == 0) {
-        _e2 = 1 - pow(self.b/self.a, 2);
-    }
-    return _e2;
 }
 
 + (Ellipsoid*) WGS84 {

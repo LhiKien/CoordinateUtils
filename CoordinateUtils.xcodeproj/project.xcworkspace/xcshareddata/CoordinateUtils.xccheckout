@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>F0612820-2F50-4A11-9D14-17BB18162421</string>
+	<key>IDESourceControlProjectName</key>
+	<string>CoordinateUtils</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>2632E663-9A49-49B9-AA79-2C465D6413DB</key>
+		<string>https://github.com/zzycami/CoordinateUtils.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>CoordinateUtils.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>2632E663-9A49-49B9-AA79-2C465D6413DB</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/zzycami/CoordinateUtils.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>2632E663-9A49-49B9-AA79-2C465D6413DB</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>2632E663-9A49-49B9-AA79-2C465D6413DB</string>
+			<key>IDESourceControlWCCName</key>
+			<string>CoordinateUtils</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -8,18 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "CoordinateUtils.h"
-/**
- 2014-08-29 17:07:16.933 MobileMap[771:60b] update location (gauss point) x:3349948.338572, y:40509213.081722
- 2014-08-29 17:07:16.934 MobileMap[771:60b] update location x:120.095745, y:30.269101
- 
- 
- 2014-08-29 17:12:28.943 MobileMap[777:60b] update location (gauss point) x:3349943.346089, y:40509215.376527
- 2014-08-29 17:12:28.944 MobileMap[777:60b] update location x:120.095769, y:30.269055
- 2014-08-29 17:12:28.947 MobileMap[777:60b] update location x:509215.380868, y:3349944.907049
- 
- 
- update location (gauss point) x:30.269946, y:120.095285, h:8.587585
- */
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
@@ -28,21 +16,37 @@ int main(int argc, const char * argv[]) {
         geoPoint.latitude = 29.48413400 ;
         geoPoint.longitude = 121.3621240 ;
         geoPoint.height = 15.029;
-        GaussPoint point = [coordinateUtils gaussProjection:geoPoint inEllipsoid:[Ellipsoid WGS84] withZoneWidth:3];
-        NSLog(@"%f, %f", point.x, point.y);
-        
-//        point.x = 3300304.414;
-//        point.y = 655131.668;
-//        point.h = 1.996;
-        geoPoint = [coordinateUtils gaussProjectionReverse:point inEllipsoid:[Ellipsoid WGS84] withZoneWidth:3];
-        NSLog(@"%f, %f", geoPoint.latitude, geoPoint.longitude);
-        
+//        GaussPoint point = [coordinateUtils gaussProjection:geoPoint inEllipsoid:[Ellipsoid WGS84] withZoneWidth:3];
+//        NSLog(@"%f, %f", point.x, point.y);
+//        
+//        geoPoint = [coordinateUtils gaussProjectionReverse:point inEllipsoid:[Ellipsoid WGS84] withZoneWidth:3];
+//        NSLog(@"%f, %f", geoPoint.latitude, geoPoint.longitude);
+//        
 //        RectangularPlanePoint rectPoint = [coordinateUtils rectangularPlaneCoordinateFromGeodeticCoordinates:geoPoint inEllipsoid:[Ellipsoid WGS84]];
 //        NSLog(@"%f, %f, %f", rectPoint.x, rectPoint.y, rectPoint.z);
 //        
 //        geoPoint = [coordinateUtils geodeticCoordinatesFromRectangularPlaneCoordinate:rectPoint inEllipsoid:[Ellipsoid WGS84]];
 //        NSLog(@"%f, %f, %f", geoPoint.latitude, geoPoint.longitude, geoPoint.height);
         
+        // 宁波参数 84转80参数
+        MapParameter parameter;
+        parameter.deltaX = 219.24366659464;
+        parameter.deltaY = 85.294116277735;
+        parameter.deltaZ = 72.290279203019;
+        parameter.rotateX = 1.150130;
+        parameter.rotateY = 2.901362;
+        parameter.rotateZ = -3.161284;
+        parameter.k = -1.427491005181;
+        
+        RectangularPlanePoint rectPoint84;
+        rectPoint84.x = -2902680.477;
+        rectPoint84.y = 4717151.300;
+        rectPoint84.z = 3152266.518;
+        
+        
+        GaussPoint point = [coordinateUtils Xian80PointFromWGS84Point:geoPoint];
+        
+        NSLog(@"%f, %f, %f", point.x, point.y, point.h);
     }
     
     return 0;
