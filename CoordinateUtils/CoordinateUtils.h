@@ -189,4 +189,6 @@ typedef struct _GaussPoint {
 - (GaussPoint) Xian80PointFromWGS84Point:(GeodeticPoint) point;
 
 - (RectangularPlanePoint) rectangularPlaneTanslate:(RectangularPlanePoint) point withParameter:(MapParameter) parameter;
+
+- (double) translateDMSToAngle:(double) dms;
 @end

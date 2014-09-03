@@ -56,7 +56,6 @@
  */
 - (RectangularPlanePoint) rectangularPlaneTanslate:(RectangularPlanePoint) point withParameter:(MapParameter) parameter{
     RectangularPlanePoint toPoint;
-
     
     double deltaX = parameter.deltaX;
     double deltaY = parameter.deltaY;
@@ -68,6 +67,7 @@
     // 标准参数中给出的值的单位是ppm，百万分之一米
     double k = 1.0 / parameter.k / 10000000.0;
     
+    //布尔莎七参数公式的另一种形式
 //    toPoint.x = deltaX + (1 + k)*(point.x + rotateZ*point.y - rotateY*point.z);
 //    toPoint.y = deltaY + (1 + k)*(-rotateZ*point.x+ point.y - rotateX*point.z);
 //    toPoint.z = deltaZ + (1 + k)*(point.x*rotateY - rotateX*point.y - point.z);
@@ -128,8 +128,21 @@
  角度转弧度
  */
 - (double) translateAngle:(double) angle {
-    return angle*M_PI/180;
+    return angle/180.0*M_PI;
 }
+
+/**
+ 将度分秒转化成度数
+ */
+- (double) translateDMSToAngle:(double) dms{
+    int Deg,Min;
+    double Sec;
+    Deg=(int)dms;
+    Min=(int)((dms-Deg)*100);
+    Sec=((dms-Deg)*100-Min)*100;
+    return (Deg+Min/60.0+Sec/3600.0);
+}
+
 
 /**
  高斯投影正算，计算大地坐标系（就是经纬度坐标系）中的点投影到2D平面坐标系中的点

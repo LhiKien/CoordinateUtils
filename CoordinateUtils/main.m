@@ -13,9 +13,11 @@ int main(int argc, const char * argv[]) {
     @autoreleasepool {
         CoordinateUtils* coordinateUtils = [[CoordinateUtils alloc] init];
         GeodeticPoint geoPoint;
-        geoPoint.latitude = 29.48413400 ;
-        geoPoint.longitude = 121.3621240 ;
-        geoPoint.height = 15.029;
+        geoPoint.latitude = [coordinateUtils translateDMSToAngle:29.41149626];
+        geoPoint.longitude = [coordinateUtils translateDMSToAngle:121.3848571];
+        geoPoint.height = 16.174;
+        
+        
 //        GaussPoint point = [coordinateUtils gaussProjection:geoPoint inEllipsoid:[Ellipsoid WGS84] withZoneWidth:3];
 //        NSLog(@"%f, %f", point.x, point.y);
 //        
