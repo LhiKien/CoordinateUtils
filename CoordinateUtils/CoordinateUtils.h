@@ -38,6 +38,10 @@ typedef struct _RectangularPlanePoint {
     double z;
 }RectangularPlanePoint;
 
+/**
+ * 高斯投影下的大地平面坐标点
+ *
+ */
 typedef struct _GaussPoint {
     double x;
     double y;
